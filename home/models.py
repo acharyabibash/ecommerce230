@@ -38,6 +38,7 @@ class Brand(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=300)
     price = models.IntegerField()
+    slug = models.CharField(max_length=300,unique=True)
     discounted_price = models.IntegerField(default = 0)
     description = models.TextField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE)    
