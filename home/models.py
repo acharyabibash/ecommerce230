@@ -1,5 +1,6 @@
 from django.db import models
 STATUS = (('In','In Stock'),('Out','Out of Stock'))
+LABEL = (('new','New Product'),('hot','Hot Product'),('sale','Sale product'))
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -38,12 +39,14 @@ class Brand(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=300)
     price = models.IntegerField()
-    slug = models.CharField(max_length=300,unique=True)
+    slug = models.CharField(max_length=300,unique=True,default='slug')
     discounted_price = models.IntegerField(default = 0)
     description = models.TextField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE)    
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
     status = models.CharField(max_length=50,choices=STATUS)
+    label = models.CharField(max_length=60,choices=LABEL,default ='new')
+    image = models.TextField(blank =True)
 
     def __str__(self):
         return self.title
