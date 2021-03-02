@@ -34,7 +34,9 @@ class HomeView(BaseView):
 
 class ProductDetailView(BaseView):
     def get(self,request,slug):
+        category = Item.objects.get(slug=slug).category
         self.views['detail_item'] = Item.objects.filter(slug=slug)
+        self.views['related_item'] = Item.objects.filter(category=category)
 
         return render(request,'product-detail.html',self.views)
 
