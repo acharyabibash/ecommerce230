@@ -31,3 +31,11 @@ class HomeView(BaseView):
         self.views['hot_items'] = Item.objects.filter(label='hot')
         self.views['sale_items'] = Item.objects.filter(label='sale')
         return render(request,'index.html',self.views)
+
+class ProductDetailView(BaseView):
+    def get(self,request,slug):
+        self.views['detail_item'] = Item.objects.filter(slug=slug)
+
+        return render(request,'product-detail.html',self.views)
+
+
