@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 from django.views.generic.base import View
@@ -44,3 +44,14 @@ class ProductDetailView(BaseView):
         return render(request,'product-detail.html',self.views)
 
 
+class SearchView(BaseView):
+    def get(self,request):
+        query = request.GET.get('query',None)
+        if not query:
+            return redirect("/")
+        self.view['search_query']= Item.objects.filter(
+            title__icontains = query,
+            description__icontains = query
+        )
+        self.views['searched_for'] = query
+        return render(request,'search.html')
