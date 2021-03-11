@@ -49,9 +49,9 @@ class SearchView(BaseView):
         query = request.GET.get('query',None)
         if not query:
             return redirect("/")
-        self.view['search_query']= Item.objects.filter(
-            title__icontains = query,
+        self.views['search_query']= Item.objects.filter(
+            # title__icontains = query,
             description__icontains = query
         )
         self.views['searched_for'] = query
-        return render(request,'search.html')
+        return render(request,'search.html',self.views)
