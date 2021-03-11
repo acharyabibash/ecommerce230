@@ -55,3 +55,9 @@ class SearchView(BaseView):
         )
         self.views['searched_for'] = query
         return render(request,'search.html',self.views)
+
+
+class CategoryView(BaseView):
+    def get(self,request,slug):
+        cat = Category.objects.get(slug=slug).id
+        self.views['category_items']=Item.objects.filter(category=cat)
