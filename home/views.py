@@ -61,3 +61,6 @@ class CategoryView(BaseView):
     def get(self,request,slug):
         cat = Category.objects.get(slug=slug).id
         self.views['category_items']=Item.objects.filter(category=cat)
+
+
+        return render(request,'category.html',self.views)
